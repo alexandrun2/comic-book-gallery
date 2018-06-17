@@ -1,5 +1,7 @@
 ﻿@{
     Layout = null;
+
+
 }
 
 <!DOCTYPE html>
@@ -11,7 +13,25 @@
 </head>
 <body>
     <div>
-        <h1>Hello from Sparta!</h1>
+        <h1>@ViewBag.SeriesTitle</h1>
+        <h2>Issue #@ViewBag.IssueNumber</h2>
+
+        <h5>Description:</h5>
+        <div>@Html.Raw(ViewBag.Description)</div>
+
+        @if (ViewBag.Artists.Length > 0)
+        {
+            <h5>Artists:</h5>
+            <div>
+                <ul>
+                    @foreach (var aa in ViewBag.Artists)
+                    {
+                        <li>@aa</li>
+                    }
+                </ul>
+            </div> 
+        }
+      
     </div>
 </body>
 </html>
