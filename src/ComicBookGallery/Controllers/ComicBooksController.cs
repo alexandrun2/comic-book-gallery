@@ -8,23 +8,24 @@ namespace ComicBookGallery.Controllers
 {
     public class ComicBooksController : Controller
     {
-        public ActionResult Detail()
+
+        private Data.ComicBookRepository _comicBookRepository = null;
+
+        public ComicBooksController()
         {
-            var comicBook = new Models.ComicBook()
+            _comicBookRepository = new Data.ComicBookRepository();
+        }
+
+        public ActionResult Detail(int? id)
+        {
+            if(id == null)
             {
-                SeriesTitle = "The Amazing Spider-Man",
-                IssueNumber = 700,
-                DescriptionHtml = "<p>Final issue! Witness the final hours of Doctor Octopus' life and his one, last, great act of revenge! Even if Spider-Man survives... <strong>will Peter Parker?</strong></p>",
-                Artists = new Models.Artist[]
-            {
-               new Models.Artist() { Name = "Dan Slott", Role = "Script" },
-               new Models.Artist() { Name = "Humberto Ramos", Role = "Pencils" },
-               new Models.Artist() { Name = "Victor Olazaba", Role = "Inks" },
-               new Models.Artist() { Name = "Edgar Delgado", Role = "Colors" },
-               new Models.Artist() { Name = "Chris Eliopoulos", Role = "Letters" }
+                return HttpNotFound();
             }
 
-        };
+            //pt ca am acolo sus ? dupa int nu pot folosi ca argument id, trebuie sa folosesc
+            //(int)id sau id.Value
+            var comicBook = _comicBookRepository.GetComicBook((int)id);
 
             return View(comicBook);
         }
